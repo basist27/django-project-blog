@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Додати коментар{% endblock %}
+
+{% block content %}
+    {% if comment %}
+        <h2>Ваш коментар додано.</h2>
+        <p><a href="{{ post.get_absolute_url }}">Повернутися до теми</a></p>
+    {% else %}
+        {% include "blog/post/includes/comment_form.html" %}
+    {% endif %}
+{% endblock %}
