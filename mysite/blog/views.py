@@ -6,6 +6,7 @@ from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 
 
 class PostListView(ListView):
@@ -36,10 +37,14 @@ def post_detail(request, year, month, day, post):
                    'form': form})
 
 
-def post_list(request):
-    posts_qs = Post.published.all()
+def post_list(request, tag_slug=None):
+    post_list = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        post_list = post_list.filter(tags__in=[tag])
     # Посторінкова розбивка по 3 пости на сторінку
-    paginator = Paginator(posts_qs, 3)
+    paginator = Paginator(post_list, 3)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.get_page(page_number)
@@ -54,7 +59,8 @@ def post_list(request):
 
     return render(request,
                   'blog/post/list.html',
-                  {'posts': posts})
+                  {'posts': posts,
+                   'tag': tag})
 
 
 def post_share(request, post_id):
@@ -85,6 +91,7 @@ def post_share(request, post_id):
     return render(request,
                   'blog/post/share.html',
                   {'post': post, 'form': form, 'sent': sent})
+
 
 @require_POST
 def post_comment(request, post_id):
