@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+
+{% block title %}Пошук{% endblock %}
+
+{% block content %}
+    {% if query %}
+        <h1>Публікації, що містять "{{ query }}"</h1>
+        <h3>
+            {% with results.count as total_results %}
+                Знайдено {{ total_results }} результат{{ total_results|pluralize }}
+            {% endwith %}
+        </h3>
+        {% for post in results %}
+            <h4>
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.tilte }}
+                </a>
+            </h4>
+            {{ post.body|markdown|truncatewords_html:12 }}
+        {% empty %}
+            <p>Немає результатів для Вашого запиту</p>
+        {% endfor %}
+        <p><a href="{% url 'blog:post_search' %}">Шукати знову</a></p>
+    {% else %}
+        <h1>Пошук дописів</h1>
+        <form method="get">
+            {{ form.as_p }}
+            <input type="submit" value="Пошук">
+        </form>
+    {% endif %}
+{% endblock %}

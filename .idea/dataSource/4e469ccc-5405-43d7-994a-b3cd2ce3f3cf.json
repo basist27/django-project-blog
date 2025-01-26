@@ -1,0 +1,38 @@
+{
+  "name" : null,
+  "SCHEMAS" : [ {
+    "schema_name" : "information_schema",
+    "is_public" : "N",
+    "is_system" : "Y",
+    "is_empty" : "N"
+  }, {
+    "schema_name" : "pg_catalog",
+    "is_public" : "Y",
+    "is_system" : "N",
+    "is_empty" : "N"
+  }, {
+    "schema_name" : "pg_toast",
+    "is_public" : "N",
+    "is_system" : "N",
+    "is_empty" : "N"
+  }, {
+    "schema_name" : "public",
+    "is_public" : "N",
+    "is_system" : "N",
+    "is_empty" : "N"
+  } ],
+  "CHARSETS" : [ {
+    "charset_name" : "UTF8",
+    "display_name" : "UTF8",
+    "is_deprecated" : "N",
+    "max_length" : -1
+  } ],
+  "SYSTEM_PRIVILEGES" : [ {
+    "privilege_name" : "USAGE"
+  } ],
+  "USERS" : [ {
+    "user_name" : "PUBLIC",
+    "is_expired" : "N",
+    "is_locked" : "N"
+  } ]
+}
